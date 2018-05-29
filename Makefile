@@ -3,12 +3,7 @@ CFLAGS  = -Wall -Werror -std=c99
 
 .PHONY: clean open
 
-default: bin/board
-
-test: ./bin/board-test
-	./bin/board-test
-
-./bin/board: ./build/main.o ./build/board.o ./build/check_strokes.o bin test
+./bin/board: ./build/main.o ./build/board.o ./build/check_strokes.o bin 
 		$(CC) $(CFLAGS) -o ./bin/board ./build/main.o ./build/board.o ./build/check_strokes.o -lm
 
 ./build/main.o: ./src/main.c ./src/board.h build
@@ -19,13 +14,6 @@ test: ./bin/board-test
 
 ./build/check_strokes.o: ./src/check_strokes.c ./src/check_strokes.h build
 		$(CC) $(CFLAGS) -o ./build/check_strokes.o -c ./src/check_strokes.c -lm
-
-bin/board-test: ./build/main_test.o ./build/board.o ./build/check_strokes.o bin
-	$(CC) $(CFLAGS) ./build/main_test.o ./build/board.o ./build/check_strokes.o -o bin/board-test -lm
-
-./build/main_test.o: ./test/main.c ./ctest/ctest.h ./src/board.h ./src/check_strokes.h build
-	$(CC) $(CFLAGS) -I ctest -I src -c ./test/main.c -o ./build/main_test.o -lm
-
 build:
 	mkdir build
 
