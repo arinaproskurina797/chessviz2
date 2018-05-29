@@ -1,2 +1,5 @@
 bin
 build
+.Makefile.swp
+src/ctest.h
+test/.main.c.swp
